@@ -19,9 +19,9 @@ public class ShooterController : MonoBehaviour
 
     protected void Shoot()
     {
-        Projectile newProjectile = Instantiate(m_projectilePrefab,transform.position,Quaternion.identity) as Projectile;
+        Projectile newProjectile = GameObjectPoolManager.New(m_projectilePrefab.gameObject).GetComponent<Projectile>();
         newProjectile.SetSpeed(m_projectileSpeed);
-
+        newProjectile.transform.position = this.transform.position;
         lastShotTimestamp = Time.realtimeSinceStartup;
     }
 }
