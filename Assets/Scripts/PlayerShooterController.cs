@@ -6,7 +6,7 @@ public class PlayerShooterController : ShooterController
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            if (Time.realtimeSinceStartup >= (lastShotTimestamp + m_shootCooldownSeconds))
+            if (Time.realtimeSinceStartup >= (m_lastShotTimestamp + m_shootCooldownSeconds))
             {
                 Shoot();
             }

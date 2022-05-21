@@ -13,15 +13,14 @@ public class ShooterController : MonoBehaviour
     [Header("Components")]
     [SerializeField]
     protected Projectile m_projectilePrefab;
-
-    protected float lastShotTimestamp;
-
+    
+    protected float m_lastShotTimestamp;
 
     protected void Shoot()
     {
         Projectile newProjectile = GameObjectPoolManager.New(m_projectilePrefab.gameObject).GetComponent<Projectile>();
         newProjectile.SetSpeed(m_projectileSpeed);
         newProjectile.transform.position = this.transform.position;
-        lastShotTimestamp = Time.realtimeSinceStartup;
+        m_lastShotTimestamp = Time.realtimeSinceStartup;
     }
 }
