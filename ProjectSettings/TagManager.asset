@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -44,4 +45,7 @@ TagManager:
     locked: 0
   - name: Characters
     uniqueID: 3858281451
+    locked: 0
+  - name: Projectiles
+    uniqueID: 2218079617
     locked: 0
