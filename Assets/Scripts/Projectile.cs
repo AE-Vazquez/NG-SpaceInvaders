@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : PooledGameObject
 {
     [Header("Components")] 
     [SerializeField]
@@ -13,7 +13,10 @@ public class Projectile : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D other)
     {
-        GameObjectPoolManager.Dispose(gameObject);
+        IDestroyable target = other.gameObject.GetComponent<IDestroyable>();
+        target?.TakeHit();
+
+        Dispose();
     }
     
     
