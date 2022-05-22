@@ -4,7 +4,7 @@ public class Enemy : MonoBehaviour, IDestroyable
 {
     
     [SerializeField] 
-    private EnemyController.EnemyTypes m_enemyType;
+    private EnemyConfig.EnemyTypes m_enemyType;
     
     [SerializeField] 
     private ParticleSystem m_destroyParticlesPrefab;

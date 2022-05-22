@@ -6,38 +6,20 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-
-    public enum EnemyTypes
-    {
-        Type1,
-        Type2
-    }
     
-    [Serializable]
-    public struct EnemyRow
-    {
-        public EnemyTypes EnemyType;
-        [Range(1,8)]
-        public int EnemyCount;
-    }
-
     [SerializeField] 
-    private float m_speedFactor;
-
+    private GameConfig m_gameConfig;
     [SerializeField] 
-    private float m_difficultyMultiplier=1;
-    [SerializeField] 
-    private float m_enemyStep;
+    private EnemyConfig m_enemyConfig;
+    
 
     [SerializeField] 
     private Transform m_enemyContainer;
-    [SerializeField] 
-    private List<EnemyRow> m_enemyData;
-
-    [SerializeField] 
-    private Enemy m_enemyPrefab;
     
     private List<Enemy> spawnedEnemies;
+
+    private float m_enemyStep;
+    private float m_speedFactor;
 
     private float leftBound;
     private float rightBound;
@@ -46,6 +28,8 @@ public class EnemyController : MonoBehaviour
     {
         rightBound =  Camera.main.orthographicSize * Screen.width / Screen.height;
         leftBound = -rightBound;
+        m_enemyStep = 1;
+        m_speedFactor = m_gameConfig.EnemyBaseSpeed;
 
         spawnedEnemies = new List<Enemy>();
         SpawnEnemies();
@@ -59,14 +43,21 @@ public class EnemyController : MonoBehaviour
     {
         spawnedEnemies.Remove(data.EnemyDestroyed);
     }
+    
     private void SpawnEnemies()
     {
         Vector2 position=Vector2.zero;
-        foreach (EnemyRow row in m_enemyData)
+        foreach (GameConfig.EnemyRow row in m_gameConfig.EnemyRows)
         {
+            GameObject enemyPrefab = m_enemyConfig.GetEnemyPrefab(row.EnemyType);
+            if (enemyPrefab == null)
+            {
+                Debug.LogError($"No Prefab found for enemy {row.EnemyType}, skipping row");
+                continue;
+            }
             for (int i = 0; i < row.EnemyCount; i++)
             {
-                Enemy newEnemy = Instantiate(m_enemyPrefab,transform);
+                Enemy newEnemy = Instantiate(enemyPrefab,transform).GetComponent<Enemy>();
                 spawnedEnemies.Add(newEnemy);
                 newEnemy.transform.localPosition = position;
                 position.x += 1;
@@ -81,7 +72,7 @@ public class EnemyController : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(m_speedFactor);
-            m_speedFactor *= m_difficultyMultiplier;
+            m_speedFactor *= m_gameConfig.DifficultyScale;
             
             //If any enemy would go out of bounds on next step, move the whole group down and reverse the direction
             if(CheckEnemiesOutOfBounds())
