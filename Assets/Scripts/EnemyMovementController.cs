@@ -2,7 +2,7 @@ public class EnemyMovementController : MovementController
 {
     private void Start()
     {
-        SetSpeed(m_moveSpeed);
+        SetSpeed(m_baseSpeed);
     }
 
     private void ChangeDirection()

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   m_playerLives: 3
+  m_playerSpeed: 10
+  m_playerShootCooldown: 1
   m_enemyBaseSpeed: 1
+  m_enemyShootCooldown: 1
   m_difficultyScale: 1
   m_enemyRows:
   - EnemyType: 2

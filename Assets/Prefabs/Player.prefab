@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 779892313226217086}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5913465554757221981}
   - component: {fileID: 8837405531599240729}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 150435819145842559}
   - component: {fileID: 5749985561237399625}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shooter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89fbbf13632e1db4da04f413e291d29f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_projectileType: 0
   m_shootCooldownSeconds: 0.3
   m_projectileSpeed: 6
   m_projectilePrefab: {fileID: -3276898916715865633, guid: 2922b39968063f545b9af0a2b9d0d69b, type: 3}
@@ -170,7 +171,8 @@ GameObject:
   - component: {fileID: 3220959896597217281}
   - component: {fileID: 4050173101307533301}
   - component: {fileID: 939754785999474110}
-  m_Layer: 0
+  - component: {fileID: 4106741955374486653}
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,8 +229,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794f05ace83a5da4bbf12473a1926474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_moveSpeed: 4
+  m_baseSpeed: 1
   m_rigidBody: {fileID: 4050173101307533301}
+--- !u!114 &4106741955374486653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7224807494836311753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c35e2da48bcb8cd4bbcc0a9245fcfd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_gameConfig: {fileID: 11400000, guid: 2508478ffbdd300489499d30447adb3a, type: 2}
+  m_movementController: {fileID: 939754785999474110}
+  m_shooterController: {fileID: 5749985561237399625}
 --- !u!1 &8287686605894316581
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,9 +256,9 @@ GameObject:
   m_Component:
   - component: {fileID: 451402507978340695}
   - component: {fileID: 1662526138631664811}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

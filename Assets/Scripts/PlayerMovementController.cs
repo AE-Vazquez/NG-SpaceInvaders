@@ -7,11 +7,11 @@ public class PlayerMovementController : MovementController
         float newSpeed = 0;
         if(Input.GetKey(KeyCode.A))
         {
-            newSpeed += m_moveSpeed;
+            newSpeed += m_baseSpeed;
         }
         else if(Input.GetKey(KeyCode.D))
         {
-            newSpeed -= m_moveSpeed;
+            newSpeed -= m_baseSpeed;
         }
 
         SetSpeed(newSpeed);

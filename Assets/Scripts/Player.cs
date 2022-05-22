@@ -2,14 +2,26 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDestroyable
 {
+    [Header("Configs")]
     [SerializeField] 
-    private int m_maxHitPoints=3;
+    private GameConfig m_gameConfig;
+
+    [Header("Components")] 
+    [SerializeField]
+    private PlayerMovementController m_movementController;
+
+    [SerializeField] 
+    private ShooterController m_shooterController;
+    
+    private int m_currentHitPoints;
 
     public void Start()
     {
-        m_currentHitPoints = m_maxHitPoints;
+        m_currentHitPoints = m_gameConfig.PlayerLives;
+        m_movementController.SetBaseSpeed(m_gameConfig.PlayerSpeed);
+        m_shooterController.SetShootCooldown(m_gameConfig.PlayerShootCooldown);
     }
-    private int m_currentHitPoints;
+
     public void TakeHit()
     {
         EventManager.Send(EventManager.EventTypes.PlayerHit);

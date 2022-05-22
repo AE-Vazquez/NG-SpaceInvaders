@@ -1,14 +1,14 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyShooterController : ShooterController
+public class AutoShooterController : ShooterController
 {
     void Start()
     {
         StartCoroutine(ShootCoroutine());
     }
 
-    IEnumerator ShootCoroutine()
+    private IEnumerator ShootCoroutine()
     {
         while (true)
         {

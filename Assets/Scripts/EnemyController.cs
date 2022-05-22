@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class EnemyController : MonoBehaviour
         SpawnEnemies();
         
         StartCoroutine(MoveEnemies());
+        StartCoroutine(ShootCoroutine());
 
         EventManager.Connect<EventManager.EnemyDestroyedEvent>(OnEnemyDestroyed);
     }
@@ -87,6 +89,15 @@ public class EnemyController : MonoBehaviour
                     enemyTransform.Translate(Vector3.right * m_enemyStep);
                 }
             }
+        }
+    }
+    
+    private IEnumerator ShootCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(m_gameConfig.EnemyShootCooldown + Random.Range(0, m_gameConfig.EnemyShootCooldown * 0.5f));
+            spawnedEnemies[Random.Range(0,spawnedEnemies.Count)].Shoot();
         }
     }
 
