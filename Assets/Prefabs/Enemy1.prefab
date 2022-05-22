@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7622115473136620291}
   - component: {fileID: 9025511261791765751}
-  - component: {fileID: 2777100436660703084}
+  - component: {fileID: 398588329097228753}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -42,7 +42,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2393584540584609227}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -54,8 +54,8 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
---- !u!114 &2777100436660703084
+  m_Constraints: 7
+--- !u!114 &398588329097228753
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,11 +64,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2393584540584609227}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45aa3ca29876a6b4092cc1ee73041deb, type: 3}
+  m_Script: {fileID: 11500000, guid: 74b7229ec2bd89f438562aee8e73a9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_moveSpeed: 5
-  m_rigidBody: {fileID: 9025511261791765751}
+  m_enemyType: 0
+  m_destroyParticlesPrefab: {fileID: 1597413266973925541, guid: 9ac78506ddd4a8b4db913150cc802bfe, type: 3}
 --- !u!1 &3924837978126557479
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +124,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7, y: 0.7}
+  m_Size: {x: 0.9, y: 0.7}
   m_EdgeRadius: 0
 --- !u!1 &6114586258701188728
 GameObject:
@@ -228,7 +228,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: ab8e7298c883a7049b30b9e0dd8be850, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6ff1ad39037953148a776ba37bfda8de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

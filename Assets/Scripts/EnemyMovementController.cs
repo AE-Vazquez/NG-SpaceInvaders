@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class EnemyMovementController : MovementController
 {
     private void Start()
@@ -7,11 +5,9 @@ public class EnemyMovementController : MovementController
         SetSpeed(m_moveSpeed);
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void ChangeDirection()
     {
-        if (other.collider.CompareTag("Wall"))
-        {
-            SetSpeed(m_currentSpeed*-1);
-        }
+        SetSpeed(m_currentSpeed*-1);
     }
+    
 }

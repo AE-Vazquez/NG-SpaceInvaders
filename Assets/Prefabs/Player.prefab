@@ -156,8 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89fbbf13632e1db4da04f413e291d29f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_shootCooldownMilliseconds: 1
-  m_projectileSpeed: 3
+  m_shootCooldownSeconds: 0.3
+  m_projectileSpeed: 6
   m_projectilePrefab: {fileID: -3276898916715865633, guid: 2922b39968063f545b9af0a2b9d0d69b, type: 3}
 --- !u!1 &7224807494836311753
 GameObject:
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794f05ace83a5da4bbf12473a1926474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_moveSpeed: 1
+  m_moveSpeed: 4
   m_rigidBody: {fileID: 4050173101307533301}
 --- !u!1 &8287686605894316581
 GameObject:
