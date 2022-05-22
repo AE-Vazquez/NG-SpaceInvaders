@@ -17,7 +17,6 @@ public class Projectile : PooledGameObject
     public void SetProjectileType(ProjectileTypes projectileType)
     {
         m_projectileType = projectileType;
-        gameObject.tag = projectileType.ToString();
     }
     public void SetSpeed(float newSpeed)
     {
@@ -27,7 +26,8 @@ public class Projectile : PooledGameObject
     private void OnTriggerEnter2D(Collider2D other)
     {
         //No friendly fire
-        if (m_projectileType == ProjectileTypes.Player && other.CompareTag("Player") ||
+        if (other.CompareTag(gameObject.tag) ||
+            m_projectileType == ProjectileTypes.Player && other.CompareTag("Player") ||
             (m_projectileType == ProjectileTypes.Enemy && other.CompareTag("Enemy")))
         {
             return;

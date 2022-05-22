@@ -13,9 +13,13 @@ public class GameConfig : ScriptableObject
         public int EnemyCount;
     }
     
+    [Header("Player parameters")]
     [SerializeField] private int m_playerLives;
     [SerializeField] private float m_playerSpeed;
     [SerializeField] private float m_playerShootCooldown;
+    [SerializeField] private float m_playerInvulnerableTime;
+    
+    [Header("Enemy parameters")]
     [SerializeField] private float m_enemyBaseSpeed;
     [SerializeField] private float m_enemyShootCooldown;
     [SerializeField] private float m_difficultyScale;
@@ -26,11 +30,10 @@ public class GameConfig : ScriptableObject
     
     public float PlayerSpeed => m_playerSpeed;
     public float PlayerShootCooldown => m_playerShootCooldown;
+    public float PlayerInvulnerableTime => m_playerInvulnerableTime;
     public float EnemyBaseSpeed => m_enemyBaseSpeed;
     public float DifficultyScale  => m_difficultyScale;
-
-
-
+    
     public float EnemyShootCooldown => m_enemyShootCooldown;
 
     public List<EnemyRow> EnemyRows => m_enemyRows;

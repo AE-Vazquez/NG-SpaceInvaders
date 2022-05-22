@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4850192888090025643}
   - component: {fileID: 6325701174486403423}
   - component: {fileID: 3386839828898167929}
+  - component: {fileID: 7087903500034418980}
   m_Layer: 6
   m_Name: Enemy1
   m_TagString: Enemy
@@ -30,7 +31,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7290983251586816212}
-  - {fileID: 7620030639282808829}
   - {fileID: 5953973330858991214}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -71,44 +71,13 @@ MonoBehaviour:
   m_enemyType: 0
   m_shooterController: {fileID: 7642473183046230277}
   m_destroyParticlesPrefab: {fileID: 1597413266973925541, guid: 9ac78506ddd4a8b4db913150cc802bfe, type: 3}
---- !u!1 &2089593539533499535
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7620030639282808829}
-  - component: {fileID: 8713911094503975425}
-  m_Layer: 6
-  m_Name: Collider
-  m_TagString: Enemy
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7620030639282808829
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2089593539533499535}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4850192888090025643}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &8713911094503975425
+--- !u!61 &7087903500034418980
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2089593539533499535}
+  m_GameObject: {fileID: 846625522636277859}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -239,7 +208,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4850192888090025643}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7642473183046230277
 MonoBehaviour:
