@@ -37,5 +37,17 @@ public class EnemyConfig : ScriptableObject
         }
         return enemyData.EnemyPrefab;
     }
+    
+    public int GetEnemyScore(EnemyTypes enemyType)
+    {
+        EnemyData enemyData = m_enemiesData.Find((enemy) => enemy.EnemyType == enemyType);
+        
+        if (enemyData == null)
+        {
+            Debug.LogError($"Enemy config for {enemyType} not found");
+            return 0;
+        }
+        return enemyData.Score;
+    }
 
 }

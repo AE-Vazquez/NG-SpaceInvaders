@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class GameObjectPoolManager : MonoBehaviour
+public class GameObjectPoolManager : MonoBehaviour, IGameStateListener
 {
 	private static GameObjectPoolManager s_instance = null;
 	
@@ -59,6 +59,7 @@ public class GameObjectPoolManager : MonoBehaviour
 		s_instance = this;
 		
 		m_pools = new Dictionary<int, GameObjectPool>();
+		SubscribeToGameState();
 	}
 
 	protected void OnDestroy()
@@ -67,21 +68,54 @@ public class GameObjectPoolManager : MonoBehaviour
 		{
 			s_instance = null;
 		}
+		
+		UnSubscribeToGameState();
 	}
 
-	GameObjectPool GetPool(GameObject prefab)
+	private GameObjectPool GetPool(GameObject prefab)
 	{
 		int id = prefab.GetInstanceID();
 
 		return m_pools.TryGetValue(id, out var gameObjectPool) ? gameObjectPool : null;
 	}
 
-	GameObjectPool CreatePool(GameObject prefab, int numInstances = 0)
+	private GameObjectPool CreatePool(GameObject prefab, int numInstances = 0)
 	{
 		int id = prefab.GetInstanceID();
 		GameObjectPool pool = new GameObjectPool(transform, prefab, Mathf.Max(10, numInstances), numInstances);
 		m_pools.Add(id, pool);
 
 		return pool;
+	}
+
+	private void CleanPooledObjects()
+	{
+		foreach (Transform child in transform)
+		{
+			Dispose(child.gameObject);
+		}
+	}
+
+	public void SubscribeToGameState()
+	{
+		EventManager.Subscribe(EventManager.EventTypes.GameStateChanged, OnGameStateChanged);
+	}
+
+	public void UnSubscribeToGameState()
+	{
+		EventManager.UnSubscribe(EventManager.EventTypes.GameStateChanged, OnGameStateChanged);
+	}
+
+	public void OnGameStateChanged()
+	{
+		switch (GameManager.GameState)
+		{
+			case GameManager.GameStates.Started:
+				CleanPooledObjects();
+				break;
+			case GameManager.GameStates.GameOver:
+				CleanPooledObjects();
+				break;
+		}
 	}
 }

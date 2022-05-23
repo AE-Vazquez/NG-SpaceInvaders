@@ -44,6 +44,9 @@ class GameObjectPool
     public void Dispose(PooledGameObject instance)
     {
         instance.SetPooled(true);
-        m_instances.Enqueue(instance);
+        if (!m_instances.Contains(instance))
+        {
+            m_instances.Enqueue(instance);
+        }
     }
 }

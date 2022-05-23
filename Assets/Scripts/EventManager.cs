@@ -6,8 +6,10 @@ public class EventManager
 
     public enum EventTypes
     {
+        GameStateChanged,
         PlayerHit,
-        PlayerDestroyed
+        PlayerDestroyed,
+        EnemyReachedBottom
     }
     public delegate void OnGameEvent();
     
@@ -32,12 +34,12 @@ public class EventManager
         public static OnGameEvent<T> handler;
     }
 
-    public static void Connect<T>(OnGameEvent<T> handler) where T : GameEvent
+    public static void Subscribe<T>(OnGameEvent<T> handler) where T : GameEvent
     {
         GameEventHandler<T>.handler += handler;
     }
 
-    public static void Disconnect<T>(OnGameEvent<T> handler) where T : GameEvent
+    public static void UnSubscribe<T>(OnGameEvent<T> handler) where T : GameEvent
     {
         GameEventHandler<T>.handler -= handler;
     }
@@ -69,7 +71,7 @@ public class EventManager
     }
 
 
-    public static void Unsubscribe(EventTypes eventType, OnGameEvent handler)
+    public static void UnSubscribe(EventTypes eventType, OnGameEvent handler)
     {
         if (s_subscribers.ContainsKey(eventType))
         {

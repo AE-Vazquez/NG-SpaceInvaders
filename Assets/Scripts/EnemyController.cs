@@ -1,11 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IGameStateListener
 {
     
     [SerializeField] 
@@ -13,7 +12,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] 
     private EnemyConfig m_enemyConfig;
     
-
+    [SerializeField] 
+    private Vector3 m_startPosition;
     [SerializeField] 
     private Transform m_enemyContainer;
     
@@ -29,21 +29,46 @@ public class EnemyController : MonoBehaviour
     {
         rightBound =  Camera.main.orthographicSize * Screen.width / Screen.height;
         leftBound = -rightBound;
-        m_enemyStep = 1;
         m_speedFactor = m_gameConfig.EnemyBaseSpeed;
-
         spawnedEnemies = new List<Enemy>();
+
+        SubscribeToGameState();
+        EventManager.Subscribe<EventManager.EnemyDestroyedEvent>(OnEnemyDestroyed);
+    }
+
+    void OnDestroy()
+    {
+        UnSubscribeToGameState();
+        EventManager.UnSubscribe<EventManager.EnemyDestroyedEvent>(OnEnemyDestroyed);
+    }
+
+    private void OnGameStart()
+    {
+        m_enemyStep = 1;
+
+        StopAllCoroutines();
+        ClearAllEnemies();
+        m_enemyContainer.transform.position = m_startPosition;
         SpawnEnemies();
         
         StartCoroutine(MoveEnemies());
         StartCoroutine(ShootCoroutine());
+    }
 
-        EventManager.Connect<EventManager.EnemyDestroyedEvent>(OnEnemyDestroyed);
+    private void OnGameOver()
+    {
+        StopAllCoroutines();
     }
 
     private void OnEnemyDestroyed(EventManager.EnemyDestroyedEvent data)
     {
         spawnedEnemies.Remove(data.EnemyDestroyed);
+    }
+
+    private void ClearAllEnemies()
+    {
+        spawnedEnemies.ForEach((enemy)=>Destroy(enemy.gameObject));
+        spawnedEnemies.Clear();
     }
     
     private void SpawnEnemies()
@@ -61,6 +86,7 @@ public class EnemyController : MonoBehaviour
             {
                 Enemy newEnemy = Instantiate(enemyPrefab,transform).GetComponent<Enemy>();
                 spawnedEnemies.Add(newEnemy);
+                newEnemy.Init(row.EnemyType);
                 newEnemy.transform.localPosition = position;
                 position.x += 1;
             }
@@ -107,4 +133,28 @@ public class EnemyController : MonoBehaviour
             enemyTransform.position.x + m_enemyStep >= rightBound ||
             enemyTransform.position.x + m_enemyStep <= leftBound);
     }
+
+    public void SubscribeToGameState()
+    {
+        EventManager.Subscribe(EventManager.EventTypes.GameStateChanged, OnGameStateChanged);
+    }
+
+    public void UnSubscribeToGameState()
+    {
+        EventManager.UnSubscribe(EventManager.EventTypes.GameStateChanged, OnGameStateChanged);
+    }
+
+    public void OnGameStateChanged()
+    {
+        switch (GameManager.GameState)
+        {
+            case GameManager.GameStates.Started:
+                OnGameStart();
+                break;
+            case GameManager.GameStates.GameOver:
+                OnGameOver();
+                break;
+        }
+    }
+    
 }

@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 4106741955374486653}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -238,7 +238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c35e2da48bcb8cd4bbcc0a9245fcfd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gameConfig: {fileID: 11400000, guid: 2508478ffbdd300489499d30447adb3a, type: 2}
+  m_gameManager: {fileID: 0}
   m_renderer: {fileID: 8837405531599240729}
   m_movementController: {fileID: 939754785999474110}
   m_shooterController: {fileID: 5749985561237399625}
+  m_destroyParticlesPrefab: {fileID: 1597413266973925541, guid: 9ac78506ddd4a8b4db913150cc802bfe, type: 3}

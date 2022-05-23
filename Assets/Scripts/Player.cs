@@ -1,11 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDestroyable
+public class Player : MonoBehaviour, IDestroyable, IGameStateListener
 {
     [Header("Configs")]
     [SerializeField] 
-    private GameConfig m_gameConfig;
+    private GameManager m_gameManager;
 
     [Header("Components")] 
     [SerializeField]
@@ -16,14 +16,30 @@ public class Player : MonoBehaviour, IDestroyable
     [SerializeField] 
     private ShooterController m_shooterController;
     
-    private int m_currentHitPoints;
+    [SerializeField] 
+    private ParticleSystem m_destroyParticlesPrefab;
+
+    
     private bool m_playerInvulnerable;
 
-    public void Start()
+    private void Awake()
     {
-        m_currentHitPoints = m_gameConfig.PlayerLives;
-        m_movementController.SetBaseSpeed(m_gameConfig.PlayerSpeed);
-        m_shooterController.SetShootCooldown(m_gameConfig.PlayerShootCooldown);
+        gameObject.SetActive(false);
+        SubscribeToGameState();
+    }
+
+    private void OnDestroy()
+    {
+        UnSubscribeToGameState();
+    }
+
+    private void OnGameStart()
+    {
+        transform.localPosition = Vector3.zero;
+        gameObject.SetActive(true);
+        m_playerInvulnerable = false;
+        m_movementController.SetBaseSpeed(m_gameManager.GameConfig.PlayerSpeed);
+        m_shooterController.SetShootCooldown(m_gameManager.GameConfig.PlayerShootCooldown);
     }
 
     public void TakeHit()
@@ -34,35 +50,37 @@ public class Player : MonoBehaviour, IDestroyable
         }
         
         EventManager.Send(EventManager.EventTypes.PlayerHit);
-
-        m_currentHitPoints--;
-        if (m_currentHitPoints<=0)
+        
+        if (m_gameManager.GameStats.CurrentLives<=0)
         {
             OnDestroyed();
         }
         else
         {
-            StartCoroutine(BlinkSprite(m_gameConfig.PlayerInvulnerableTime,3));
+            StartCoroutine(BlinkSprite(m_gameManager.GameConfig.PlayerInvulnerableTime,3));
             StartCoroutine(InvulnerableCoroutine());
         }
     }
 
     public void OnDestroyed()
     {
+        GameObject newParticles = GameObjectPoolManager.New(m_destroyParticlesPrefab.gameObject);
+        newParticles.transform.position = this.transform.position;
+        
         EventManager.Send(EventManager.EventTypes.PlayerDestroyed);
-        Destroy(gameObject);
+        StopAllCoroutines();
+        gameObject.SetActive(false);
     }
 
     private IEnumerator InvulnerableCoroutine()
     {
         m_playerInvulnerable = false;
-        yield return new WaitForSeconds(m_gameConfig.PlayerInvulnerableTime);
+        yield return new WaitForSeconds(m_gameManager.GameConfig.PlayerInvulnerableTime);
         m_playerInvulnerable = false;
     }
 
     private IEnumerator BlinkSprite(float duration, int loops)
     {
-        float timer = 0;
         Color color = m_renderer.color;
         float fadeDuration = duration / (loops * 2);
         for(int i=0;i<loops;i++)
@@ -87,5 +105,28 @@ public class Player : MonoBehaviour, IDestroyable
         }
         color.a = to;
         m_renderer.color = color;
+    }
+    
+    
+    public void SubscribeToGameState()
+    {
+        EventManager.Subscribe(EventManager.EventTypes.GameStateChanged, OnGameStateChanged);
+    }
+
+    public void UnSubscribeToGameState()
+    {
+        EventManager.UnSubscribe(EventManager.EventTypes.GameStateChanged, OnGameStateChanged);
+    }
+
+    public void OnGameStateChanged()
+    {
+        switch (GameManager.GameState)
+        {
+            case GameManager.GameStates.Started:
+                OnGameStart();
+                break;
+            case GameManager.GameStates.GameOver:
+                break;
+        }
     }
 }

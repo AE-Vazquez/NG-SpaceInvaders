@@ -15,8 +15,9 @@ MonoBehaviour:
   m_playerLives: 3
   m_playerSpeed: 10
   m_playerShootCooldown: 1
-  m_enemyBaseSpeed: 1
-  m_enemyShootCooldown: 1
+  m_playerInvulnerableTime: 2
+  m_enemyBaseSpeed: 0.5
+  m_enemyShootCooldown: 10000
   m_difficultyScale: 1
   m_enemyRows:
   - EnemyType: 2

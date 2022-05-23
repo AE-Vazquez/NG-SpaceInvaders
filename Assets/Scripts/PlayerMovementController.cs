@@ -4,6 +4,10 @@ public class PlayerMovementController : MovementController
 {
     void Update()
     {
+        if (GameManager.GameState != GameManager.GameStates.Started)
+        {
+            return;
+        }
         float newSpeed = 0;
         if(Input.GetKey(KeyCode.A))
         {
