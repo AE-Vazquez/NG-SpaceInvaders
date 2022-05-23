@@ -9,7 +9,10 @@ public class EventManager
         GameStateChanged,
         PlayerHit,
         PlayerDestroyed,
-        EnemyReachedBottom
+        EnemyReachedBottom,
+        AllEnemiesDestroyed,
+        ScoreChanged,
+        LivesChanged
     }
     public delegate void OnGameEvent();
     

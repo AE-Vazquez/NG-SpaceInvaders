@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
         EventManager.Subscribe(EventManager.EventTypes.PlayerHit, OnPlayerHit);
         EventManager.Subscribe<EventManager.EnemyDestroyedEvent>(OnEnemyDestroyed);
         EventManager.Subscribe(EventManager.EventTypes.EnemyReachedBottom, OnEnemyReachedBottom);
+        EventManager.Subscribe(EventManager.EventTypes.AllEnemiesDestroyed, OnAllEnemiesDestroyed);
     }
 
 
@@ -37,6 +38,12 @@ public class GameManager : MonoBehaviour
         EventManager.UnSubscribe(EventManager.EventTypes.PlayerHit, OnPlayerHit);
         EventManager.UnSubscribe<EventManager.EnemyDestroyedEvent>(OnEnemyDestroyed);
         EventManager.UnSubscribe(EventManager.EventTypes.EnemyReachedBottom, OnEnemyReachedBottom);
+        EventManager.UnSubscribe(EventManager.EventTypes.AllEnemiesDestroyed, OnAllEnemiesDestroyed);
+    }
+
+    private void OnAllEnemiesDestroyed()
+    {
+        SetGameState(GameStates.GameOver);
     }
 
 
@@ -64,7 +71,7 @@ public class GameManager : MonoBehaviour
     
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.P))
+        if (Input.GetKeyUp(KeyCode.Space) && GameState!=GameStates.Started)
         {
             StartGame();
         }

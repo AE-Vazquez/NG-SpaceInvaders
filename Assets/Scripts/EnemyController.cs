@@ -63,6 +63,10 @@ public class EnemyController : MonoBehaviour, IGameStateListener
     private void OnEnemyDestroyed(EventManager.EnemyDestroyedEvent data)
     {
         spawnedEnemies.Remove(data.EnemyDestroyed);
+        if (spawnedEnemies.Count <= 0)
+        {
+            EventManager.Send(EventManager.EventTypes.AllEnemiesDestroyed);
+        }
     }
 
     private void ClearAllEnemies()

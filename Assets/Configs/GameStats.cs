@@ -22,17 +22,31 @@ public class GameStats : ScriptableObject , IGameStateListener
     public void AddScore(int score)
     {
         m_currentScore += score;
+        EventManager.Send(EventManager.EventTypes.ScoreChanged);
+    }
+
+    private void SetScore(int score)
+    {
+        m_currentScore = score;
+        EventManager.Send(EventManager.EventTypes.ScoreChanged);
     }
 
     public void UpdateLives(int amount)
     {
         m_currentLives += amount;
+        EventManager.Send(EventManager.EventTypes.LivesChanged);
+    }
+
+    private void SetLives(int amount)
+    {
+        m_currentLives = amount;
+        EventManager.Send(EventManager.EventTypes.LivesChanged);
     }
 
     void OnGameStart()
     {
-        m_currentLives = m_gameConfig.PlayerLives;
-        m_currentScore = 0;
+        SetLives(m_gameConfig.PlayerLives);
+        SetScore(0);
     }
 
     public void SubscribeToGameState()

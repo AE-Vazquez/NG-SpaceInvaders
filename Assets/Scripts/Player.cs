@@ -38,6 +38,9 @@ public class Player : MonoBehaviour, IDestroyable, IGameStateListener
         transform.localPosition = Vector3.zero;
         gameObject.SetActive(true);
         m_playerInvulnerable = false;
+        Color color = m_renderer.color;
+        color.a = 1;
+        m_renderer.color = color;
         m_movementController.SetBaseSpeed(m_gameManager.GameConfig.PlayerSpeed);
         m_shooterController.SetShootCooldown(m_gameManager.GameConfig.PlayerShootCooldown);
     }

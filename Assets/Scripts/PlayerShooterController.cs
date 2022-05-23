@@ -9,7 +9,7 @@ public class PlayerShooterController : ShooterController
             return;
         }
         
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (Time.realtimeSinceStartup >= (m_lastShotTimestamp + m_shootCooldownSeconds))
             {

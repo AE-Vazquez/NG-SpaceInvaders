@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enemiesData:
   - EnemyType: 0
-    Score: 50
+    Score: 100
     EnemyPrefab: {fileID: 846625522636277859, guid: 73832698d9d76c34d9631db37e1d0f7e, type: 3}
   - EnemyType: 1
-    Score: 100
+    Score: 200
     EnemyPrefab: {fileID: 6063318212307510885, guid: 868d37d5ff2f44342bf7a4a1350a6b22, type: 3}
   - EnemyType: 2
-    Score: 200
+    Score: 300
     EnemyPrefab: {fileID: 8109500711022270121, guid: 4ea2f6bd5370bff4a94bbad5ed5121a4, type: 3}
