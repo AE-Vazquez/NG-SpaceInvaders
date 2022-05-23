@@ -16,13 +16,13 @@ MonoBehaviour:
   m_playerSpeed: 10
   m_playerShootCooldown: 1
   m_playerInvulnerableTime: 2
-  m_enemyBaseSpeed: 0.5
+  mEnemyBaseMoveDelay: 0
   m_enemyShootCooldown: 1
-  m_difficultyScale: 1
+  m_difficultyScale: 0.95
   m_enemyRows:
   - EnemyType: 2
     EnemyCount: 8
   - EnemyType: 1
-    EnemyCount: 6
+    EnemyCount: 8
   - EnemyType: 0
-    EnemyCount: 5
+    EnemyCount: 8
