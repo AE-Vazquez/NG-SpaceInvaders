@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -10,9 +9,9 @@ public class GameManager : MonoBehaviour
         GameOver
     }
      
+    [Header("Configs")]
     [SerializeField] 
     private GameConfig m_gameConfig;
-
     [SerializeField] 
     private EnemyConfig m_enemyConfig;
     [SerializeField] 
@@ -78,15 +77,11 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void StartGame()
+    private void StartGame()
     {
         SetGameState(GameStates.Started);
     }
     
-    public void GameOver()
-    {
-        SetGameState(GameStates.GameOver);
-    }
 
     private void SetGameState(GameStates newState)
     {

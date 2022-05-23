@@ -18,7 +18,6 @@ public class Player : MonoBehaviour, IDestroyable, IGameStateListener
     
     [SerializeField] 
     private ParticleSystem m_destroyParticlesPrefab;
-
     
     private bool m_playerInvulnerable;
 
@@ -38,13 +37,16 @@ public class Player : MonoBehaviour, IDestroyable, IGameStateListener
         transform.localPosition = Vector3.zero;
         gameObject.SetActive(true);
         m_playerInvulnerable = false;
+        
         Color color = m_renderer.color;
         color.a = 1;
         m_renderer.color = color;
+        
         m_movementController.SetBaseSpeed(m_gameManager.GameConfig.PlayerSpeed);
         m_shooterController.SetShootCooldown(m_gameManager.GameConfig.PlayerShootCooldown);
     }
 
+    #region IDestroyable
     public void TakeHit()
     {
         if (m_playerInvulnerable)
@@ -74,6 +76,7 @@ public class Player : MonoBehaviour, IDestroyable, IGameStateListener
         StopAllCoroutines();
         gameObject.SetActive(false);
     }
+    #endregion
 
     private IEnumerator InvulnerableCoroutine()
     {
@@ -110,7 +113,7 @@ public class Player : MonoBehaviour, IDestroyable, IGameStateListener
         m_renderer.color = color;
     }
     
-    
+    #region IGameStateListener
     public void SubscribeToGameState()
     {
         EventManager.Subscribe(EventManager.EventTypes.GameStateChanged, OnGameStateChanged);
@@ -132,4 +135,6 @@ public class Player : MonoBehaviour, IDestroyable, IGameStateListener
                 break;
         }
     }
+    
+    #endregion
 }

@@ -6,12 +6,13 @@ using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour, IGameStateListener
 {
-    
+    [Header("Configs")]
     [SerializeField] 
     private GameConfig m_gameConfig;
     [SerializeField] 
     private EnemyConfig m_enemyConfig;
     
+    [Header("Scene References")]
     [SerializeField] 
     private Vector3 m_startPosition;
     [SerializeField] 
@@ -22,14 +23,16 @@ public class EnemyController : MonoBehaviour, IGameStateListener
     private float m_enemyStep;
     private float m_speedFactor;
 
+    //Level bounds for each side so enemies dont go offscreen
     private float leftBound;
     private float rightBound;
 
     void Start()
     {
+        //Get the bounds based on current camera and screen ratio
         rightBound =  Camera.main.orthographicSize * Screen.width / Screen.height;
         leftBound = -rightBound;
-        m_speedFactor = m_gameConfig.EnemyBaseSpeed;
+
         spawnedEnemies = new List<Enemy>();
 
         SubscribeToGameState();
@@ -44,9 +47,11 @@ public class EnemyController : MonoBehaviour, IGameStateListener
 
     private void OnGameStart()
     {
-        m_enemyStep = 1;
-
         StopAllCoroutines();
+        m_enemyStep = 1;
+        m_speedFactor = m_gameConfig.EnemyBaseMoveDelay;
+
+
         ClearAllEnemies();
         m_enemyContainer.transform.position = m_startPosition;
         SpawnEnemies();
@@ -101,7 +106,7 @@ public class EnemyController : MonoBehaviour, IGameStateListener
 
     private IEnumerator MoveEnemies()
     {
-        while (true)
+        while (GameManager.GameState==GameManager.GameStates.Started)
         {
             yield return new WaitForSeconds(m_speedFactor);
             m_speedFactor *= m_gameConfig.DifficultyScale;
@@ -124,7 +129,7 @@ public class EnemyController : MonoBehaviour, IGameStateListener
     
     private IEnumerator ShootCoroutine()
     {
-        while (true)
+        while (GameManager.GameState==GameManager.GameStates.Started)
         {
             yield return new WaitForSeconds(m_gameConfig.EnemyShootCooldown + Random.Range(0, m_gameConfig.EnemyShootCooldown * 0.5f));
             spawnedEnemies[Random.Range(0,spawnedEnemies.Count)].Shoot();
@@ -138,6 +143,7 @@ public class EnemyController : MonoBehaviour, IGameStateListener
             enemyTransform.position.x + m_enemyStep <= leftBound);
     }
 
+    #region IGameStateListener
     public void SubscribeToGameState()
     {
         EventManager.Subscribe(EventManager.EventTypes.GameStateChanged, OnGameStateChanged);
@@ -160,5 +166,7 @@ public class EnemyController : MonoBehaviour, IGameStateListener
                 break;
         }
     }
+    
+    #endregion
     
 }

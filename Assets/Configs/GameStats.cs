@@ -3,8 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game Stats")]
 public class GameStats : ScriptableObject , IGameStateListener
 {
-    private const string MaxScorePrefsKey = "MaxScore";
-
     [SerializeField] 
     private GameConfig m_gameConfig;
 
@@ -49,6 +47,7 @@ public class GameStats : ScriptableObject , IGameStateListener
         SetScore(0);
     }
 
+    #region IGameStateListener
     public void SubscribeToGameState()
     {
         EventManager.Subscribe(EventManager.EventTypes.GameStateChanged, OnGameStateChanged);
@@ -68,4 +67,6 @@ public class GameStats : ScriptableObject , IGameStateListener
                 break;
         }
     }
+    
+    #endregion
 }

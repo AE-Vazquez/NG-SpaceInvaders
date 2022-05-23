@@ -5,7 +5,7 @@ public class GameObjectPoolManager : MonoBehaviour, IGameStateListener
 {
 	private static GameObjectPoolManager s_instance = null;
 	
-	Dictionary<int, GameObjectPool> m_pools = null;
+	private Dictionary<int, GameObjectPool> m_pools = null;
 	
 	
 	public static GameObject New(GameObject prefab)
@@ -31,8 +31,7 @@ public class GameObjectPoolManager : MonoBehaviour, IGameStateListener
 				return;
 			}
 
-			GameObjectPool gameObjectPool = null;
-			bool found = s_instance.m_pools.TryGetValue(pooled.PoolId, out gameObjectPool);
+			bool found = s_instance.m_pools.TryGetValue(pooled.PoolId, out var gameObjectPool);
 
 			if (found)
 			{
@@ -96,6 +95,7 @@ public class GameObjectPoolManager : MonoBehaviour, IGameStateListener
 		}
 	}
 
+	#region IGameStateListener
 	public void SubscribeToGameState()
 	{
 		EventManager.Subscribe(EventManager.EventTypes.GameStateChanged, OnGameStateChanged);
@@ -118,4 +118,6 @@ public class GameObjectPoolManager : MonoBehaviour, IGameStateListener
 				break;
 		}
 	}
+	
+	#endregion
 }

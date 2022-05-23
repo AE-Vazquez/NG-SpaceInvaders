@@ -57,6 +57,7 @@ public class HUDManager : MonoBehaviour, IGameStateListener
         }
     }
     
+    #region IGameStateListener
     public void SubscribeToGameState()
     {
         EventManager.Subscribe(EventManager.EventTypes.GameStateChanged, OnGameStateChanged);
@@ -79,4 +80,5 @@ public class HUDManager : MonoBehaviour, IGameStateListener
                 break;
         }
     }
+    #endregion
 }

@@ -22,7 +22,7 @@ class GameObjectPool
         }
     }
 
-    PooledGameObject CreateInstance()
+    private PooledGameObject CreateInstance()
     {
         GameObject instance = GameObject.Instantiate(m_prefab, m_parent);
 

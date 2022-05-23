@@ -10,7 +10,7 @@ public class AutoShooterController : ShooterController
 
     private IEnumerator ShootCoroutine()
     {
-        while (true)
+        while (GameManager.GameState==GameManager.GameStates.Started)
         {
             yield return new WaitForSeconds(m_shootCooldownSeconds + Random.Range(0, m_shootCooldownSeconds * 0.5f));
             Shoot();

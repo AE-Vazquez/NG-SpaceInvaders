@@ -86,8 +86,7 @@ public class EventManager
 
     public static void Send(EventTypes eventType)
     {
-        OnGameEvent action = null;
-        if (s_subscribers.TryGetValue(eventType, out action))
+        if (s_subscribers.TryGetValue(eventType, out var action))
         {
             action();
         }

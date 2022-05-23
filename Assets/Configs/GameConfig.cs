@@ -23,7 +23,7 @@ public class GameConfig : ScriptableObject
     
     [Header("Enemy parameters")]
     [Range(0.5f,5)]
-    [SerializeField] private float m_enemyBaseSpeed;
+    [SerializeField] private float mEnemyBaseMoveDelay;
     [Range(0.5f,5)]
     [SerializeField] private float m_enemyShootCooldown;
     [Range(0.5f,1)]
@@ -36,7 +36,7 @@ public class GameConfig : ScriptableObject
     public float PlayerSpeed => m_playerSpeed;
     public float PlayerShootCooldown => m_playerShootCooldown;
     public float PlayerInvulnerableTime => m_playerInvulnerableTime;
-    public float EnemyBaseSpeed => m_enemyBaseSpeed;
+    public float EnemyBaseMoveDelay => mEnemyBaseMoveDelay;
     public float DifficultyScale  => m_difficultyScale;
     
     public float EnemyShootCooldown => m_enemyShootCooldown;

@@ -7,7 +7,6 @@ public class ShooterController : MonoBehaviour
     protected Projectile.ProjectileTypes m_projectileType;
     [SerializeField]
     protected float m_shootCooldownSeconds=1f;
-    
     [SerializeField]
     protected float m_projectileSpeed=1f;
 

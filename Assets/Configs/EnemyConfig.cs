@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,9 +22,7 @@ public class EnemyConfig : ScriptableObject
 
     [SerializeField] 
     private List<EnemyData> m_enemiesData;
-
-    public List<EnemyData> EnemiesData => m_enemiesData;
-
+    
     public GameObject GetEnemyPrefab(EnemyTypes enemyType)
     {
         EnemyData enemyData = m_enemiesData.Find((enemy) => enemy.EnemyType == enemyType);
