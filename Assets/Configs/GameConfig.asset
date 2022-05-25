@@ -16,7 +16,7 @@ MonoBehaviour:
   m_playerSpeed: 10
   m_playerShootCooldown: 1
   m_playerInvulnerableTime: 2
-  mEnemyBaseMoveDelay: 0
+  mEnemyBaseMoveDelay: 1
   m_enemyShootCooldown: 1
   m_difficultyScale: 0.95
   m_enemyRows:
